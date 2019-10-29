@@ -14,13 +14,17 @@ var detectNetwork = function(cardNumber) {
   let network = '';
   // The Diner's Club network always starts with a 38 or 39 and is 14 digits long
   // The American Express network always starts with a 34 or 37 and is 15 digits long
+  // Visa always has a prefix of 4 and a length of 13, 16, or 19
+  // MasterCard always has a prefix of 51, 52, 53, 54, or 55 and a length of 16
   if (prefix === '38' || prefix === '39' && digits === 14) {
     network = "Diner's Club";
   } else if (prefix === '34' || prefix === '37' && digits === 15) {
     network = 'American Express';
+  } else if (prefix[0] === '4' && [13, 16, 19].indexOf(digits) !== -1) {
+    network = 'Visa';
+  } else if (['51', '52', '53', '54', '55'].indexOf(prefix) !== -1 && digits === 16) {
+    network = 'MasterCard';
   }
 
   return network;
 };
-
-
