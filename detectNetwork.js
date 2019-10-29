@@ -9,22 +9,30 @@
 
 var detectNetwork = function(cardNumber) {
   // Note: `cardNumber` will always be a string
-  const prefix = cardNumber.substring(0,2);
+  const prefixOne = cardNumber[0];
+  const prefixTwo = cardNumber.substring(0, 2);
+  const prefixThree = cardNumber.substring(0, 3);
+  const prefixFour = cardNumber.substring(0, 4);
   const digits = cardNumber.length;
-  let network = '';
-  // The Diner's Club network always starts with a 38 or 39 and is 14 digits long
-  // The American Express network always starts with a 34 or 37 and is 15 digits long
-  // Visa always has a prefix of 4 and a length of 13, 16, or 19
-  // MasterCard always has a prefix of 51, 52, 53, 54, or 55 and a length of 16
-  if (prefix === '38' || prefix === '39' && digits === 14) {
-    network = "Diner's Club";
-  } else if (prefix === '34' || prefix === '37' && digits === 15) {
-    network = 'American Express';
-  } else if (prefix[0] === '4' && [13, 16, 19].indexOf(digits) !== -1) {
-    network = 'Visa';
-  } else if (['51', '52', '53', '54', '55'].indexOf(prefix) !== -1 && digits === 16) {
-    network = 'MasterCard';
+
+  if (prefixTwo === '38' || prefixTwo === '39' && digits === 14) {
+    // Diner's Club
+    return "Diner's Club";
+  } else if (prefixTwo === '34' || prefixTwo === '37' && digits === 15) {
+    // American Express
+    return 'American Express';
+  } else if (prefixOne === '4' && [13, 16, 19].indexOf(digits) !== -1) {
+    // Visa
+    return 'Visa';
+  } else if (['51', '52', '53', '54', '55'].indexOf(prefixTwo) !== -1 && digits === 16) {
+    // MasterCard
+    return 'MasterCard';
+  } else if (prefixFour === '6011' || ['644', '645', '646', '647', '648', '649'].indexOf(prefixThree) !== -1 || prefixTwo === '65' && (digits === 16 || digits === 19)) {
+    // Discover
+    return 'Discover';
+  } else if (['5018', '5020', '5038', '6304'].indexOf(prefixFour) !== -1 && [12, 13, 14, 15, 16, 17, 18, 19].indexOf(digits) !== -1) {
+    // Maestro
+    return 'Maestro';
   }
 
-  return network;
 };
