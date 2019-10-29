@@ -91,19 +91,10 @@ describe('MasterCard', function() {
   // and should, but that's just for learning), so once you've gotten
   // these tests to pass using should syntax, refactor your tests to
   // use either expect or should, but not both.
-  var should = chai.should();
-
-  // it('has a prefix of 54 and a length of 16', function() {
-  //   detectNetwork('5434567890123456').should.equal('MasterCard');
-  // });
 
   it('has a prefix of 54 and a length of 16', function() {
     expect(detectNetwork('5434567890123456')).to.equal('MasterCard');
   });
-
-  // it('has a prefix of 55 and a length of 16', function() {
-  //   detectNetwork('5534567890123456').should.equal('MasterCard');
-  // });
 
   it('has a prefix of 55 and a length of 16', function() {
     expect(detectNetwork('5534567890123456')).to.equal('MasterCard');
