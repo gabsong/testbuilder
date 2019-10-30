@@ -13,7 +13,12 @@ var detectNetwork = function(cardNumber) {
   const prefixTwo = cardNumber.substring(0, 2);
   const prefixThree = cardNumber.substring(0, 3);
   const prefixFour = cardNumber.substring(0, 4);
+  const prefixSix = cardNumber.substring(0, 6);
   const digits = cardNumber.length;
+
+  Number.prototype.betweenInclusive = function(lowerBound, upperBound) {
+    return this >= lowerBound && this <= upperBound;
+  }
 
   if (prefixTwo === '38' || prefixTwo === '39' && digits === 14) {
     // Diner's Club
@@ -21,18 +26,24 @@ var detectNetwork = function(cardNumber) {
   } else if (prefixTwo === '34' || prefixTwo === '37' && digits === 15) {
     // American Express
     return 'American Express';
+  } else if (parseInt(prefixTwo).betweenInclusive(51, 55) && digits === 16) {
+    // MasterCard
+    return 'MasterCard';
+  } else if (prefixFour === '6011' || parseInt(prefixThree).betweenInclusive(644, 649) || prefixTwo === '65' && (digits === 16 || digits === 19)) {
+    // Discover
+    return 'Discover';
+  } else if (['5018', '5020', '5038', '6304'].indexOf(prefixFour) !== -1 && digits.betweenInclusive(12, 19)) {
+    // Maestro
+    return 'Maestro';
+  } else if (['4903', '4905', '4911', '4936', '6333', '6759'].indexOf(prefixFour) !== -1 || ['564182', '633110'].indexOf(prefixSix) !== -1 && [16, 18, 19].indexOf(digits) !== -1) {
+    // Switch
+    return 'Switch';
   } else if (prefixOne === '4' && [13, 16, 19].indexOf(digits) !== -1) {
     // Visa
     return 'Visa';
-  } else if (['51', '52', '53', '54', '55'].indexOf(prefixTwo) !== -1 && digits === 16) {
-    // MasterCard
-    return 'MasterCard';
-  } else if (prefixFour === '6011' || ['644', '645', '646', '647', '648', '649'].indexOf(prefixThree) !== -1 || prefixTwo === '65' && (digits === 16 || digits === 19)) {
-    // Discover
-    return 'Discover';
-  } else if (['5018', '5020', '5038', '6304'].indexOf(prefixFour) !== -1 && [12, 13, 14, 15, 16, 17, 18, 19].indexOf(digits) !== -1) {
-    // Maestro
-    return 'Maestro';
+  } else if (parseInt(prefixSix).betweenInclusive(622126, 622925) || parseInt(prefixThree).betweenInclusive(624, 626) || parseInt(prefixFour).betweenInclusive(6282, 6288) && digits.betweenInclusive(16, 19)) {
+    // China UnionPay
+    return 'China UnionPay';
   }
 
 };
