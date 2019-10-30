@@ -307,3 +307,136 @@ describe('Maestro', function() {
 
 });
 
+describe('Switch', () => {
+  let expect = chai.expect;
+
+  it('has a prefix of 4903 and a length of 16', () => {
+    expect(detectNetwork('4903567890123456')).to.equal('Switch');
+  });
+
+  it('has a prefix of 4903 and a length of 18', () => {
+    expect(detectNetwork('490356789012345678')).to.equal('Switch');
+  });
+
+  it('has a prefix of 4903 and a length of 19', () => {
+    expect(detectNetwork('4903567890123456789')).to.equal('Switch');
+  });
+
+  it('has a prefix of 4905 and a length of 16', () => {
+    expect(detectNetwork('4905567890123456')).to.equal('Switch');
+  });
+
+  it('has a prefix of 4905 and a length of 18', () => {
+    expect(detectNetwork('490556789012345678')).to.equal('Switch');
+  });
+
+  it('has a prefix of 4905 and a length of 19', () => {
+    expect(detectNetwork('4905567890123456789')).to.equal('Switch');
+  });
+
+  it('has a prefix of 4911 and a length of 16', () => {
+    expect(detectNetwork('4911567890123456')).to.equal('Switch');
+  });
+
+  it('has a prefix of 4911 and a length of 18', () => {
+    expect(detectNetwork('491156789012345678')).to.equal('Switch');
+  });
+
+  it('has a prefix of 4911 and a length of 19', () => {
+    expect(detectNetwork('4911567890123456789')).to.equal('Switch');
+  });
+
+  it('has a prefix of 4936 and a length of 16', () => {
+    expect(detectNetwork('4936567890123456')).to.equal('Switch');
+  });
+
+  it('has a prefix of 4936 and a length of 18', () => {
+    expect(detectNetwork('493656789012345678')).to.equal('Switch');
+  });
+
+  it('has a prefix of 4936 and a length of 19', () => {
+    expect(detectNetwork('4936567890123456789')).to.equal('Switch');
+  });
+
+  it('has a prefix of 564182 and a length of 16', () => {
+    expect(detectNetwork('5641827890123456')).to.equal('Switch');
+  });
+
+  it('has a prefix of 564182 and a length of 18', () => {
+    expect(detectNetwork('564182789012345678')).to.equal('Switch');
+  });
+
+  it('has a prefix of 564182 and a length of 19', () => {
+    expect(detectNetwork('5641827890123456789')).to.equal('Switch');
+  });
+
+  it('has a prefix of 633110 and a length of 16', () => {
+    expect(detectNetwork('6331107890123456')).to.equal('Switch');
+  });
+
+  it('has a prefix of 633110 and a length of 18', () => {
+    expect(detectNetwork('633110789012345678')).to.equal('Switch');
+  });
+
+  it('has a prefix of 633110 and a length of 19', () => {
+    expect(detectNetwork('6331107890123456789')).to.equal('Switch');
+  });
+
+  it('has a prefix of 6333 and a length of 16', () => {
+    expect(detectNetwork('6333567890123456')).to.equal('Switch');
+  });
+
+  it('has a prefix of 6333 and a length of 18', () => {
+    expect(detectNetwork('633356789012345678')).to.equal('Switch');
+  });
+
+  it('has a prefix of 6333 and a length of 19', () => {
+    expect(detectNetwork('6333567890123456789')).to.equal('Switch');
+  });
+
+  it('has a prefix of 6759 and a length of 16', () => {
+    expect(detectNetwork('6759567890123456')).to.equal('Switch');
+  });
+
+  it('has a prefix of 6759 and a length of 18', () => {
+    expect(detectNetwork('675956789012345678')).to.equal('Switch');
+  });
+
+  it('has a prefix of 6759 and a length of 19', () => {
+    expect(detectNetwork('6759567890123456789')).to.equal('Switch');
+  });
+
+});
+
+describe('China UnionPay', () => {
+  let expect = chai.expect;
+  const fabricatedCardNumber = '12345678901234567890';
+
+  for (let i = 622126; i <= 622925; i++) {
+    for (let j = 16; j <= 19; j++) {
+      it(`has a prefix of ${i} and a length of ${j}`, () => {
+        const prefixLength = (i).toString().length;
+        expect(detectNetwork((i).toString() + fabricatedCardNumber.substring(prefixLength, j))).to.equal('China UnionPay');
+      });
+    }
+  }
+
+  for (let i = 624; i <= 626; i++) {
+    for (let j = 16; j <= 19; j++) {
+      it(`has a prefix of ${i} and a length of ${j}`, () => {
+        const prefixLength = (i).toString().length;
+        expect(detectNetwork((i).toString() + fabricatedCardNumber.substring(prefixLength, j))).to.equal('China UnionPay');
+      });
+    }
+  }
+
+  for (let i = 6282; i <= 6288; i++) {
+    for (let j = 16; j <= 19; j++) {
+      it(`has a prefix of ${i} and a length of ${j}`, () => {
+        const prefixLength = (i).toString().length;
+        expect(detectNetwork((i).toString() + fabricatedCardNumber.substring(prefixLength, j))).to.equal('China UnionPay');
+      });
+    }
+  }
+
+});
